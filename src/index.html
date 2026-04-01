@@ -11,24 +11,104 @@
     ></script>
     <script src="./app.js" defer></script>
   </head>
-  <body class="">
+  <body class="bg-slate-200 font-sans">
     <header
-      class="flex justify-between items-center p-4 border-2 border-slate-600 bg-slate-500 text-slate-300"
+      class="flex flex-col sm:flex-row justify-between items-center gap-4 p-4 bg-slate-500 text-slate-200"
     >
-        <div class="flex items-center p-2 justify-center gap-2 border">
-            <i class="fa-solid fa-chart-simple text-4xl"></i>
-            <h1 class="text-2xl">Jape StockTracker</h1>
+        <div class="flex items-center gap-3">
+            <i class="fa-solid fa-chart-simple text-3xl"></i>
+            <h1 class="text-2xl font-bold">Jape StockTracker</h1>
         </div>
-        <div class="flex gap-4">
+        <div class="flex gap-6 text-center">
             <div>
-                <p class="text-sm text-center">Portfolio Value:</p>
-                <p id="total-stock-value" class="text-lg text-center" >$2000.00</p>
+                <p class="text-xs uppercase tracking-wide">Portfolio Value:</p>
+                <p id="total-stock-value" class="text-lg font-semibold" >$2000.00</p>
             </div>
             <div>
-                <p class="text-sm text-center">Stocks Owned:</p>
-                <p id="total-stock-count text-center" class="text-lg">1</p>
+                <p class="text-xs uppercase text-center">Stocks Owned:</p>
+                <p id="total-stock-count" class="text-lg text-center font-semibold" >1</p>
             </div>
         </div>
     </header>
+    <div class="bg-slate-200 p-4 sm:p-8 space-y-6">
+      <!-- Search section -->
+      <section class="max-w-4xl mx-auto p-6 bg-white rounded-md shadow-sm flex flex-col items-center justify-center gap-4">
+        <div class="flex flex-col sm:flex-row gap-3 w-full max-w-2xl">
+          <div class="flex-1 px-4 py-2 border border-slate-300 rounded-md flex items-center gap-2 bg-slate-50">
+            <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
+            <input id="stock-input" type="text" class="w-full outline-none" placeholder="Search stocks (e.g. AAPL)">
+          </div>
+          <button id="search-btn" class="px-6 py-2 border rounded-md text-slate-200 bg-slate-500 hover:bg-slate-700 cursor-pointer transition">Search</button>
+        </div>
+        <!-- Quick search -->
+        <div class="flex flex-col sm:flex-row items-center gap-3 mt-3 w-full max-w-2xl">
+          <p class="text-slate-500 text-sm">Quick search:</p>
+          <div id="quick-search" class="flex flex-wrap gap-3">
+            <div data-symbol="AAPL" class="quick-search-item cursor-pointer border border-slate-200 rounded-md text-sm text-slate-700 px-3 py-1 bg-slate-100 hover:bg-slate-200 transition">Apple</div>
+            <div data-symbol="TSLA" class="quick-search-item cursor-pointer border border-slate-200 rounded-md text-sm text-slate-700 px-3 py-1 bg-slate-100 hover:bg-slate-200 transition">Telsa</div>
+            <div data-symbol="MSFT" class="quick-search-item cursor-pointer border border-slate-200 rounded-md text-sm text-slate-700 px-3 py-1 bg-slate-100 hover:bg-slate-200 transition">Microsoft</div>
+            <div data-symbol="AMZN" class="quick-search-item cursor-pointer border border-slate-200 rounded-md text-sm text-slate-700 px-3 py-1 bg-slate-100 hover:bg-slate-200 transition">Amazon</div>
+            <div data-symbol="GOOGL" class="quick-search-item cursor-pointer border border-slate-200 rounded-md text-sm text-slate-700 px-3 py-1 bg-slate-100 hover:bg-slate-200 transition">Google</div>
+          </div>
+        </div>
+      </section>
+      <!-- Watchlist -->
+      <section class="max-w-4xl mx-auto mt-3">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-eye text-xl text-amber-500"></i>
+            <h2 class="text-xl font-bold">Your Watchlist</h2>
+          </div>
+          <button class="flex items-center gap-1 border border-slate-500 px-3 py-1 rounded-md text-sm hover:bg-slate-100 transition">
+            <i class="fa-solid fa-arrows-rotate text-sm"></i>
+            <p>Refresh</p>
+          </button>
+        </div>
+        <div id="watchlist" class="mt-3 bg-white rounded-md p-8 text-slate-600 flex flex-col justify-center gap-1 min-h-[180px] shadow-sm">
+          <i class="fa-solid fa-arrow-up-right-dots text-2xl text-center"></i>
+          <p class="text-md text-center">Your watchlist is empty</p>
+          <p class="text-sm text-center">Search for stocks and add them to your watchlist to track their performance</p>
+        </div>
+      </section>
+      <!-- Portfolio section -->
+      <section class="profile-section flex flex-col sm:flex-row justify-center gap-10 max-w-6xl mx-auto">
+        <!-- Summary -->
+        <div class="flex flex-col justify-center space-y-4 p-7">
+          <div class="text-center space-y-3">
+            <h2 class="text-3xl font-bold">Portfolio Summary</h2>
+            <i class="fa-solid fa-money-bill text-amber-500 text-3xl"></i>
+          </div>
+          <div class="flex flex-col text-center p-8 bg-white space-y-4 rounded-lg shadow-sm">
+            <h3 class="text-xl text-slate-400 font-bold">Total Portfolio Value</h3>
+            <p class="text-2xl">$0.00</p>
+          </div>
+        </div>
+        <!-- Stats -->
+        <div class="flex flex-col justify-evenly items-center gap-2">
+          <div class="flex flex-col sm:flex-row gap-4 items-center ">
+            <div class="p-6 border border-slate-300 bg-slate-50 rounded-md space-y-2 text-center w-60">
+              <h3 class="text-sm font-semibold">Number of Positions</h3>
+              <p id="positions" class="text-center ">0</p>
+            </div>
+            <div class="p-6 border border-slate-300 bg-slate-50 rounded-md space-y-2 text-center w-60">
+              <h3 class="text-sm font-semibold">Top Performing Stock</h3>
+              <p id="best-stock" class="text-center">-</p>
+            </div>
+            <div class="p-6 border border-slate-300 bg-slate-50 rounded-md space-y-2 text-center w-60">
+              <h3 class="text-sm font-semibold">Today's Changes</h3>
+              <p id="changes" class="text-center">+0.00</p>
+            </div>
+          </div>
+          <button class="flex gap-2 items-center justify-center px-3 py-2 rounded-md border-slate-400 hover:bg-slate-100 transition border w-40">
+            <i class="fa-solid fa-arrow-up-from-bracket"></i>
+            <p>Export data</p>
+          </button>
+        </div>
+
+      </section>
+    </div>
+
+
+
   </body>
 </html>
